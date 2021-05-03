@@ -5,6 +5,9 @@
   "author": "Admin <lxldevtest@163.com>",
   "homepage": "",
   "license": "ISC",
+  "bin": {
+    "zion-cli": "lib/core.js"
+  },
   "main": "lib/core.js",
   "directories": {
     "lib": "lib",
@@ -19,5 +22,8 @@
   "dependencies": {
     "@zion-cli/utils": "^1.0.1",
     "lodash": "^4.17.21"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
