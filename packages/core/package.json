@@ -1,0 +1,23 @@
+{
+  "name": "@zion-cli/core",
+  "version": "1.0.0",
+  "description": "zion-cli",
+  "author": "Admin <lxldevtest@163.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/core.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from core\""
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "@zion-cli/utils":"^1.0.0"
+  }
+}
