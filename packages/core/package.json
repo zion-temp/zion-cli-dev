@@ -1,6 +1,6 @@
 {
   "name": "@zion-cli/core",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "zion-cli",
   "author": "Admin <lxldevtest@163.com>",
   "homepage": "",
@@ -20,7 +20,7 @@
     "test": "echo \"Error: run tests from core\""
   },
   "dependencies": {
-    "@zion-cli/utils": "^1.0.1",
+    "@zion-cli/utils": "^1.0.2",
     "lodash": "^4.17.21"
   },
   "publishConfig": {
