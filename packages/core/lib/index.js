@@ -72,6 +72,7 @@ function checkEnv(){
     log.verbose('环境变量',process.env.Cli_HOME_PATH);
     
 }
+//配置日志权限
 function createDefaultConfig(){
     const cliConfig = {
         home:userHome
