@@ -1,7 +1,7 @@
 'use strict';
-
-module.exports = utils;
-
-function utils() {
-    // TODO
+const log = require('../log/index')
+const gitInfo = require('../git-npm-info')
+module.exports = {
+    log,
+    ...gitInfo,
 }
