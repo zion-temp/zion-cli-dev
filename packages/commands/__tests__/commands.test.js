@@ -2,6 +2,6 @@
 
 const commands = require('..');
 
-describe('commands', () => {
+describe('@zion-cli/commands', () => {
     it('needs tests');
 });

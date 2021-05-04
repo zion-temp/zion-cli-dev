@@ -2,6 +2,6 @@
 
 const models = require('..');
 
-describe('models', () => {
+describe('@zion-cli/models', () => {
     it('needs tests');
 });
