@@ -7,9 +7,4 @@ log.addLevel('success',2000,{fg:'green',bold:true});
 log.heading='zion-cli';
 log.headingStyle={fg:'white',bg:'red'};
 
-
-// function logger() {
-//     // TODO
-//     log.success('cli','测试')
-// }
 module.exports = log;
