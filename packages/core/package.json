@@ -20,12 +20,13 @@
     "test": "echo \"Error: run tests from core\""
   },
   "dependencies": {
+    "@zion-cli/commands":"^1.0.6",
     "@zion-cli/utils": "^1.0.9",
     "colors": "^1.4.0",
+    "commander": "^7.2.0",
     "dotenv": "^8.2.0",
     "import-local": "^3.0.2",
     "lodash": "^4.17.21",
-    "minimist": "^1.2.5",
     "npmlog": "^4.1.2",
     "path-exists": "^4.0.0",
     "root-check": "^1.0.0",

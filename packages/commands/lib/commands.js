@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = commands;
+module.exports = init;
 
-function commands() {
-    // TODO
+function init(projectName,cmdObj){
+    console.log(projectName,cmdObj)
 }

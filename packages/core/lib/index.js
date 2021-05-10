@@ -3,21 +3,20 @@ module.exports = core;
 const path = require('path')
 const semver = require('semver')
 const userHome = require("user-home")
+const commander = require("commander");
 const pathExists = require('path-exists').sync; 
 const colors = require("colors/safe")
 //require 加载。.js/.json /.node  其他的按js来解析
 const {log,getnpmVersion,getsemverVersion} = require("@zion-cli/utils")
+// const init = require("@zion-cli/commands")
 const pkg = require('../package.json')
-const {nodeVersion,DEFAULT_CLI_HOME} = require('./const')
+const {nodeVersion,DEFAULT_CLI_HOME} = require('./const');
+const program = new commander.Command();
 let config;
 function core(argv){
-    checkVersion();
-    chechNodeVersion();
-    checkRoot();
-    checkUsetHome();
-    checkInputArgs(argv);
-    checkEnv()
-    cheacGlobalUpdate();
+    prepare();
+    reginsterCommand();
+    
 }
 //检查版本
 function checkVersion(){
@@ -46,16 +45,6 @@ function checkUsetHome(){
     
 }
 //检查并解析参数debugger模式启用
-function checkInputArgs(argv){
-    const minimist = require('minimist')
-    const args = minimist(argv);
-    if(args.debugger){
-        process.env.LOG_LEVEL = "verbose"
-    }else{
-        process.env.LOG_LEVEL = "info"
-    }
-    log.level = process.env.LOG_LEVEL;
-}
 
 function checkEnv(){
     const dotenv = require('dotenv')
@@ -69,7 +58,7 @@ function checkEnv(){
     createDefaultConfig();
     
 
-    log.verbose('环境变量',process.env.Cli_HOME_PATH);
+    // log.verbose('环境变量',process.env.Cli_HOME_PATH);
     
 }
 //配置日志权限
@@ -98,4 +87,61 @@ async function cheacGlobalUpdate (){
         }
     }
     
+}
+//
+async function prepare(){
+    checkVersion();
+    chechNodeVersion();
+    checkRoot();
+    checkUsetHome();
+    checkEnv()
+    cheacGlobalUpdate();
+}
+//命令注册
+function reginsterCommand(){
+    //注册脚手架
+    program
+        .name(Object.keys(pkg.bin)[0])
+        .usage('<command> [options]')
+        .version(pkg.version)
+        .option('-d --debugger', '是否开启调试模式', false)
+        .option('-tp --targetPath <targetPath>', '是否指定本地调试','');
+        
+        //开启debugger 模式
+
+    // 注册命令
+    program.command('init [projectName]')
+    .option('-f, --force', '是否强制初始化项目')
+    .action(init);
+
+    program.on('option:debugger',()=>{
+        const options = program.opts();
+        if (options.debugger) {
+            process.env.LOG_LEVEL = "verbose"
+        }else {
+            process.env.LOG_LEVEL = "info"
+        }
+        log.level = process.env.LOG_LEVEL;
+    })
+    program.on('option:targetPath',()=>{
+        const options = program.opts();
+        process.env.CLI_TARGET_PATH = options.targetPath;
+        
+    })
+    program.on('command:*',(obj)=>{
+        let commands = program.commands.map(cmd => cmd.name());
+        log.error(colors.red('未知的命令' + obj[0]));
+
+        log.info(colors.red('可用命令：' + commands.join(',')));
+    })
+    if(process.argv.length<3){
+        program.outputHelp();
+        console.log();
+    }
+    
+    program.parse(process.argv);
+
+    function init(projectName,cmdObj){
+        console.log(process.env.CLI_TARGET_PATH);
+    }
 }
