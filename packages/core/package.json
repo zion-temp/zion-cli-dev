@@ -22,6 +22,7 @@
   "dependencies": {
     "@zion-cli/commands":"^1.0.6",
     "@zion-cli/utils": "^1.0.9",
+    "@zion-cli/exec":"^1.0.9",
     "colors": "^1.4.0",
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",

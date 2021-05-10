@@ -8,6 +8,7 @@ const pathExists = require('path-exists').sync;
 const colors = require("colors/safe")
 //require 加载。.js/.json /.node  其他的按js来解析
 const {log,getnpmVersion,getsemverVersion} = require("@zion-cli/utils")
+const exec  = require("@zion-cli/exec")
 // const init = require("@zion-cli/commands")
 const pkg = require('../package.json')
 const {nodeVersion,DEFAULT_CLI_HOME} = require('./const');
@@ -112,7 +113,7 @@ function reginsterCommand(){
     // 注册命令
     program.command('init [projectName]')
     .option('-f, --force', '是否强制初始化项目')
-    .action(init);
+    .action(exec);
 
     program.on('option:debugger',()=>{
         const options = program.opts();
@@ -141,7 +142,7 @@ function reginsterCommand(){
     
     program.parse(process.argv);
 
-    function init(projectName,cmdObj){
-        console.log(process.env.CLI_TARGET_PATH);
-    }
+    // function init(projectName,cmdObj){
+    //     console.log(process.env.CLI_TARGET_PATH);
+    // }
 }

@@ -1,7 +1,11 @@
 'use strict';
 
-module.exports = models;
+class Package {
+    constructor(){
+        console.log('Package constructor')
+    }
 
-function models() {
-    // TODO
+    
 }
+
+module.exports = Package;
