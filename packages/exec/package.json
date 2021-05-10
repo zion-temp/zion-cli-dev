@@ -1,6 +1,6 @@
 {
   "name": "@zion-cli/exec",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "@zion-cli/exec",
   "author": "Admin <lxldevtest@163.com>",
   "homepage": "",
@@ -16,7 +16,6 @@
   "publishConfig": {
     "access": "public"
   },
-  
   "repository": {
     "type": "git",
     "url": "https://gitee.com/xlongli/zion-cli.git"
@@ -25,6 +24,6 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@zion-cli/models":"^1.0.6"
+    "@zion-cli/models": "^1.0.10"
   }
 }
