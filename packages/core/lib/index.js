@@ -8,7 +8,7 @@ const pathExists = require('path-exists').sync;
 const colors = require("colors/safe")
 //require 加载。.js/.json /.node  其他的按js来解析
 const {log,getnpmVersion,getsemverVersion} = require("@zion-cli/utils")
-const exec  = require("@zion-cli/exec")
+const init  = require("@zion-cli/exec")
 // const init = require("@zion-cli/commands")
 const pkg = require('../package.json')
 const {nodeVersion,DEFAULT_CLI_HOME} = require('./const');
@@ -113,7 +113,7 @@ function reginsterCommand(){
     // 注册命令
     program.command('init [projectName]')
     .option('-f, --force', '是否强制初始化项目')
-    .action(exec);
+    .action(init);
 
     program.on('option:debugger',()=>{
         const options = program.opts();
