@@ -132,12 +132,10 @@ function reginsterCommand(){
     program.on('command:*',(obj)=>{
         let commands = program.commands.map(cmd => cmd.name());
         log.error(colors.red('未知的命令' + obj[0]));
-
         log.info(colors.red('可用命令：' + commands.join(',')));
     })
     if(process.argv.length<3){
         program.outputHelp();
-        console.log();
     }
     
     program.parse(process.argv);
