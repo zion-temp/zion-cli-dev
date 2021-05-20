@@ -1,6 +1,6 @@
 {
   "name": "@zion-cli/exec",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "@zion-cli/exec",
   "author": "Admin <lxldevtest@163.com>",
   "homepage": "",
@@ -24,8 +24,8 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@zion-cli/installpackage": "^1.0.11",
-    "@zion-cli/models": "^1.0.11",
+    "@zion-cli/installpackage": "^1.0.12",
+    "@zion-cli/models": "^1.0.12",
     "user-home": "^2.0.0"
   }
 }
