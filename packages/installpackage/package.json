@@ -1,11 +1,11 @@
 {
-  "name": "@zion-cli/exec",
+  "name": "@zion-cli/installpackage",
   "version": "1.0.11",
-  "description": "@zion-cli/exec",
+  "description": "@zion-cli/installpackage",
   "author": "Admin <lxldevtest@163.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "lib/exec.js",
+  "main": "lib/installpackage.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -24,8 +24,10 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@zion-cli/installpackage": "^1.0.11",
-    "@zion-cli/models": "^1.0.11",
-    "user-home": "^2.0.0"
+    "@zion-cli/utils": "^1.0.11",
+    "fs-extra": "^10.0.0",
+    "npminstall": "^4.10.0",
+    "path-exists": "^4.0.0",
+    "pkg-dir": "^5.0.0"
   }
 }

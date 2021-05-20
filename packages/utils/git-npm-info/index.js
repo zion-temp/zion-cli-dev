@@ -8,7 +8,9 @@ const semver = require('semver')
 module.exports = {
     getnpmVersion,
     getsemverVersion,
-    getnpminfo
+    getnpminfo,
+    getDefaultRegistry,
+    getNpmLatestVersion
 }
 function getsemverVersion(baseVersion,versions){
     versions.filter(ver=>{
@@ -47,4 +49,12 @@ function getnpminfo(namePack,registry){
 function getDefaultRegistry(isOriginal = false){
     return isOriginal?'https://registry.npm.org':'https://registry.npm.taobao.org'
 }
+//获取最新版本
+async function getNpmLatestVersion(npmName, registry) {
+    let versions = await getnpmVersion(npmName, registry);
+    if (versions) {
+      return versions.sort((a, b) => semver.gt(b, a))[0];
+    }
+    return null;
+  }
 

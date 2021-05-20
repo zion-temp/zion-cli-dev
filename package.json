@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "zion-cli"
+    "test": "zion-cli init app  -f"
   },
   "keywords": [],
   "author": "",
