@@ -13,21 +13,38 @@ class IninCommand extends Command{
     init(){
         // 初始化数据
         this.projectName = this._argv[0]||'';
-        
         this.force = this._cmd.opts().force || false;
-
-
-
-        // console.log(this.projectName,this.force)
+        this.projectInfo = null;
+        this.templateInfo = null;
+        this.templateNpm = null
+        this.templateList = [
+            {
+                name:'vue2标准模板',
+                value:'zion-template-vue2',
+                version:'latest'
+            },
+            {
+                name:'vue3标准模板ts版',
+                value:'zion-cli-vue3-ts',
+                version:'latest'
+            },
+            {
+                name:'vue库组件开发模板',
+                value:'zion-cli-components',
+                version:'latest'
+            }
+        ] 
     }
-    exec(){
-        //1准备
-        this.prepare()
+    async exec(){
         
-        //2、下载
-        //3、安装
         try {
-            // this.downloadTemplate();
+            //1准备
+            let projectInfo =await this.prepare();
+            log.verbose('项目配置信息',this.projectInfo);
+            //2、下载
+            await this.downloadTemplate();
+            //3、安装
+            
         } catch (error) {
             log.error('出错了',error)
         }
@@ -36,32 +53,34 @@ class IninCommand extends Command{
     async prepare(){
         //判断当前目录是否为空
         let localPath = process.cwd();
+        let project;
         if(this.force){
             //询问是否据需创建
             await this.isClearFs('确认清空当前文件，创建新项目?',()=>{
                 fse.emptyDirSync(localPath);//清空当前文件加
-                this.porjectInit()
+                project = this.porjectInit()
             })
         }else {
             if(!this.isCwdEmpty(localPath)){
                 await this.isClearFs('当前文件不为空，是否清空当前文件，继续创建项目？',()=>{
                     fse.emptyDirSync(localPath);//清空当前文件加
 
-                    this.porjectInit()
+                    project = this.porjectInit()
                 })
             }else {
                 // 初始化项目信息
-                this.porjectInit()
+                project =  this.porjectInit()
                
             }
         }
+        return project;
     }
     async porjectInit(){
         
-        // console.log(this.projectName);
+        
         let _self = this;
         //获取项目基本信息
-        let o;
+        let project;
         let inputInfo=[
             {
                 name: 'projectVersion',
@@ -85,6 +104,12 @@ class IninCommand extends Command{
                       return v;
                     }
                 },
+            },
+            {
+                type: 'list',
+                name: 'projectTemplate',
+                message: `请选择项目模板`,
+                choices: this.createTemplateChoice(),
             } 
         ]
         if(!this.projectName){
@@ -95,18 +120,10 @@ class IninCommand extends Command{
                 default: 'project',
             })
         }
-        o = await inquirer.prompt(inputInfo)
-        if(!o.projectName) o.projectName = _self.projectName
-        console.log(o)
-        // const {type} = await inquirer.prompt([ {
-        //     name: 'type',
-        //     type: 'list',
-        //     message: '请选择项目模板',
-        //     choices: ['red', 'blue', 'yellow'],
-        //     default: 'red'
-        // }]);
-        // console.log(type)
-
+        project = await inquirer.prompt(inputInfo)
+        if(!project.projectName) project.projectName = _self.projectName
+        _self.projectInfo = project;
+        return project;
     }
     //提醒用户是否确认清空当前文件
     async isClearFs(msg,cb){
@@ -119,7 +136,7 @@ class IninCommand extends Command{
         }])
         if(ifContinue){
             cb&&cb()
-            // console.log(3)
+            
             
             //是否强制更新
         }else {
@@ -142,31 +159,51 @@ class IninCommand extends Command{
     }
     //下载模板
     async downloadTemplate(){
-        // console.log(userHome)
+       const {projectTemplate} = this.projectInfo
+       const templateInfo = this.templateList.find(item => item.value === projectTemplate);
         //下载包到家目录下面
         const targetPath = path.resolve(userHome, '.zion-cli', 'template');
         const storeDir = path.resolve(userHome, '.zion-cli', 'template', 'node_modules');
+        const { value, version } = templateInfo;
+        this.templateInfo = templateInfo;
         const templateNpm = new Package({
             targetPath,
             storeDir,
-            packageName: 'lodash',
-            packageVersion: '4.17.21',
+            packageName: value,
+            packageVersion: version,
         });
         
-        if(!templateNpm.exists()){ //不存在
-            
+        if(!await templateNpm.exists()){ //不存在
             try {
                 await templateNpm.install()
             } catch (error) {
                 throw(error)
+            }finally{
+                if (await templateNpm.exists()) {
+                    log.success('下载模板成功');
+                    this.templateNpm = templateNpm;
+                }
             }
         }else { //存在更新
             try {
                 await templateNpm.update();
             } catch (error) {
                 throw(error)
+            }finally{
+                if (await templateNpm.exists()) {
+                    log.success('更新模板成功');
+                    this.templateNpm = templateNpm;
+                    console.log(this.templateNpm.cacheFilePath)
+                }
             }
         }
+    }
+
+    createTemplateChoice() {
+        return this.templateList.map(item => ({
+          value: item.value,
+          name: item.name,
+        }));
     }
 }
 function init() {
