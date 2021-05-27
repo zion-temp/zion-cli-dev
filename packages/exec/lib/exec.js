@@ -7,7 +7,7 @@ const semver = require('semver');
 const fse = require('fs-extra')// 文件操作的库
 const Command = require("@zion-cli/models")
 const Package = require("@zion-cli/installpackage");
-const {log} = require("@zion-cli/utils")
+const {log,spinnerStart, sleep, execAsync} = require("@zion-cli/utils")
 
 class IninCommand extends Command{
     init(){
@@ -38,17 +38,45 @@ class IninCommand extends Command{
     async exec(){
         
         try {
-            //1准备
+            //1准备模板信息
             let projectInfo =await this.prepare();
             log.verbose('项目配置信息',this.projectInfo);
-            //2、下载
+            //2、下载模板
             await this.downloadTemplate();
-            //3、安装
-            
+            //3、安装模板
+            await this.installTemplate();
         } catch (error) {
-            log.error('出错了',error)
+            log.verbose('出错了',error)
         }
         
+    }
+    async installTemplate(){
+        log.verbose('templateInfo', this.templateInfo);
+        if(this.templateInfo){
+            // 标准安装
+            await this.installNormalTemplate();
+        }
+    }
+    async installNormalTemplate(){
+        log.verbose('templateNpm', this.templateNpm);
+        // 拷贝模板代码至当前目录
+        let spinner = spinnerStart('正在安装模板...');
+        await sleep();
+        try {
+            const templatePath = path.resolve(this.templateNpm.cacheFilePath, 'template');
+            const targetPath = process.cwd();
+            let proNamepath = path.resolve(targetPath,this.projectInfo.projectName)
+            fse.mkdirpSync(proNamepath); //确保路径存在不存在创建
+            fse.ensureDirSync(templatePath);
+            fse.ensureDirSync(proNamepath);
+            fse.copySync(templatePath, proNamepath); //拷贝模板
+        } catch (error) {
+            throw error;
+        }finally{
+            spinner.stop(true);
+            log.success('模板安装成功');
+        }
+        //后面ejs 模板解析
     }
     async prepare(){
         //判断当前目录是否为空
@@ -136,11 +164,9 @@ class IninCommand extends Command{
         }])
         if(ifContinue){
             cb&&cb()
-            
-            
             //是否强制更新
         }else {
-            return;
+            return false;
         }
     }
     isCwdEmpty(localPath){
@@ -174,26 +200,32 @@ class IninCommand extends Command{
         });
         
         if(!await templateNpm.exists()){ //不存在
+            const spinner = spinnerStart('正在下载模板...');
+            await sleep();
             try {
                 await templateNpm.install()
             } catch (error) {
                 throw(error)
             }finally{
+                spinner.stop(true);
                 if (await templateNpm.exists()) {
                     log.success('下载模板成功');
                     this.templateNpm = templateNpm;
                 }
             }
         }else { //存在更新
+            const spinner = spinnerStart('正在更新模板...');
+            await sleep();
             try {
                 await templateNpm.update();
             } catch (error) {
                 throw(error)
             }finally{
+                spinner.stop(true);
                 if (await templateNpm.exists()) {
                     log.success('更新模板成功');
                     this.templateNpm = templateNpm;
-                    console.log(this.templateNpm.cacheFilePath)
+                    // console.log(this.templateNpm.cacheFilePath)
                 }
             }
         }
