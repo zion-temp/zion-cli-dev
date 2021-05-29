@@ -11,7 +11,10 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "format-path",
+    "git-npm-info",
+    "log"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from utils\""
