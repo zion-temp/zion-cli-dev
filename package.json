@@ -1,10 +1,7 @@
 {
   "name": "zion-cli-dev",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "zion-cli dev",
-  "bin": {
-    "zion-cli": "packages/core/lib/core.js"
-  },
   "main": "index.js",
   "scripts": {
     "test": "zion-cli init app  -f"
