@@ -27,7 +27,9 @@
     "@zion-cli/installpackage": "^1.0.14",
     "@zion-cli/models": "^1.0.14",
     "@zion-cli/utils": "^1.0.14",
+    "ejs": "^3.1.6",
     "fs-extra": "^10.0.0",
+    "glob": "^7.1.7",
     "inquirer": "^8.1.0",
     "semver": "^7.3.5",
     "user-home": "^2.0.0"

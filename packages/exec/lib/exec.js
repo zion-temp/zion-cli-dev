@@ -5,6 +5,8 @@ const userHome = require('user-home');
 const inquirer = require('inquirer');
 const semver = require('semver');
 const fse = require('fs-extra')// 文件操作的库
+const glob = require('glob'); //文件查询
+const ejs = require('ejs');//模板渲染
 const Command = require("@zion-cli/models")
 const Package = require("@zion-cli/installpackage");
 const {log,spinnerStart, sleep, execAsync} = require("@zion-cli/utils")
@@ -31,6 +33,11 @@ class IninCommand extends Command{
             {
                 name:'vue库组件开发模板',
                 value:'zion-cli-components',
+                version:'latest'
+            },
+            {
+                name:'uniapp app 项目开发模板',
+                value:'zion-uniapp-template',
                 version:'latest'
             }
         ] 
@@ -77,6 +84,41 @@ class IninCommand extends Command{
             log.success('模板安装成功');
         }
         //后面ejs 模板解析
+        await this.ejsRender();
+    }
+    async ejsRender(){
+        const dir = path.resolve(process.cwd(),this.projectInfo.projectName)
+        const projectInfo = this.projectInfo;
+         //console.log(projectInfo);
+        return new Promise((resolve, reject)=>{
+            glob('**',{
+                cwd: dir,
+                ignore:['**/node_modules/**','**/*.html'],
+                nodir: true,
+            },function(err,files){
+                if(err){
+                    reject(err)
+                }
+                Promise.all(files.map(file=>{
+                    const filePath = path.join(dir, file);
+                    return new Promise((resolve1, reject1)=>{
+                        ejs.renderFile(filePath,projectInfo,{},(err, result)=>{
+                            if(err){
+                                reject1(err)
+                            }else {
+                                fse.writeFileSync(filePath, result);
+                                resolve1(result);
+                            }
+                        })
+                    })
+                })).then(()=>{
+                    resolve();
+                }).catch(err=>{
+                    reject(err)
+                })
+            })
+        })
+        
     }
     async prepare(){
         //判断当前目录是否为空
