@@ -1,6 +1,6 @@
 {
   "name": "@zion-cli/core",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "zion-cli",
   "author": "Admin <lxldevtest@163.com>",
   "homepage": "",
@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "@zion-cli/commands": "^1.0.10",
-    "@zion-cli/exec": "^1.0.15",
-    "@zion-cli/utils": "^1.0.14",
+    "@zion-cli/exec": "^1.0.16",
+    "@zion-cli/utils": "^1.0.16",
     "colors": "^1.4.0",
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",

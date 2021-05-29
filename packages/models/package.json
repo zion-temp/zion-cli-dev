@@ -1,6 +1,6 @@
 {
   "name": "@zion-cli/models",
-  "version": "1.0.14",
+  "version": "1.0.16",
   "description": "@zion-cli/models",
   "author": "Admin <lxldevtest@163.com>",
   "homepage": "",
@@ -24,6 +24,6 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@zion-cli/utils": "^1.0.14"
+    "@zion-cli/utils": "^1.0.16"
   }
 }
