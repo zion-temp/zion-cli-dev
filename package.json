@@ -1,6 +1,6 @@
 {
   "name": "zion-cli-dev",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "zion-cli dev",
   "main": "index.js",
   "scripts": {
