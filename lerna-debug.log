@@ -1,18 +1,4 @@
-0 silly argv {
-0 silly argv   _: [ 'create' ],
-0 silly argv   lernaVersion: '4.0.0',
-0 silly argv   '$0': '/usr/local/bin/lerna',
-0 silly argv   name: '@zion/commands'
-0 silly argv }
-1 notice cli v4.0.0
-2 verbose rootPath /Users/lixiaolong/Desktop/cli/zion-cli-div/zion-cli-dev
-3 error Error: canceled
-3 error     at Interface.<anonymous> (/Users/lixiaolong/Desktop/cli/zion-cli-div/zion-cli-dev/node_modules/read/lib/read.js:66:13)
-3 error     at Interface.emit (node:events:369:20)
-3 error     at Interface._ttyWrite (node:readline:973:16)
-3 error     at ReadStream.onkeypress (node:readline:259:10)
-3 error     at ReadStream.emit (node:events:369:20)
-3 error     at emitKeys (node:internal/readline/utils:358:14)
-3 error     at emitKeys.next (<anonymous>)
-3 error     at ReadStream.onData (node:readline:1242:36)
-3 error     at ReadStream.emit (node:events:369:20)
+57 error Error: Command failed with exit code 128: git push --follow-tags --no-verify --atomic origin master
+57 error fatal: unable to access 'https://github.com/zion-temp/zion-cli-dev.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
+57 error     at makeError (/Users/lixiaolong/Desktop/zion-ui-docs/zion-cli-dev/node_modules/execa/lib/error.js:59:11)
+57 error     at handlePromise (/Users/lixiaolong/Desktop/zion-ui-docs/zion-cli-dev/node_modules/execa/index.js:114:26)
