@@ -81,6 +81,7 @@ function shell(){
             console.log(chalk.green('服务器执行命令' + data));
         });
         // 执行的服务器命令
+        
         stream.end(`
             cd ${json.romotePath}
             unzip -o ${timestr}.zip

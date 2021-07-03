@@ -10,6 +10,7 @@ npm install -g @zion-cli/core
 npm install  @zion-cli/core -D
 
 zion-cli init appname
+
 ```
 
 
