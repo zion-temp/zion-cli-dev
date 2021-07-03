@@ -1,6 +1,6 @@
 {
   "name": "@zion-cli/publish",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "@zion-cli/publish",
   "keywords": [
     "CI/CD"
