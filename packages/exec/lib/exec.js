@@ -39,6 +39,11 @@ class IninCommand extends Command{
                 name:'uniapp app 项目开发模板',
                 value:'zion-uniapp-template',
                 version:'latest'
+            },
+            {
+                name:'vue3 h5项目模板',
+                value:'zion-vue-h5-template',
+                version:'latest'
             }
         ] 
     }
