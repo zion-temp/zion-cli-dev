@@ -3,5 +3,5 @@
 module.exports = init;
 
 function init(projectName,cmdObj){
-    console.log(projectName,cmdObj)
+    // console.log(projectName,cmdObj)
 }
