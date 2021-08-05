@@ -9,6 +9,7 @@ const colors = require("colors/safe")
 //require 加载。.js/.json /.node  其他的按js来解析
 const {log,getnpmVersion,getsemverVersion} = require("@zion-cli/utils")
 const init  = require("@zion-cli/exec")
+const createPage = require('@zion-cli/newpage')
 // const init = require("@zion-cli/commands")
 const pkg = require('../package.json')
 const {nodeVersion,DEFAULT_CLI_HOME} = require('./const');
@@ -106,7 +107,8 @@ function reginsterCommand(){
         .usage('<command> [options]')
         .version(pkg.version)
         .option('-d --debugger', '是否开启调试模式', false)
-        .option('-tp --targetPath <targetPath>', '是否指定本地调试','');
+        .option('-tp --targetPath <targetPath>', '是否指定本地调试','')
+        // .option('-n --newpage <targetName>', '指定新建页面名称','newpage');
         
         //开启debugger 模式
 
@@ -114,6 +116,10 @@ function reginsterCommand(){
     program.command('init [projectName]')
     .option('-f, --force', '是否强制初始化项目')
     .action(init);
+    // 创建页面
+    program.command('page [pageName]')
+    
+    .action(createPage);
 
     program.on('option:debugger',()=>{
         const options = program.opts();
@@ -129,6 +135,12 @@ function reginsterCommand(){
         process.env.CLI_TARGET_PATH = options.targetPath;
         
     })
+    // 新建页面指令
+    // program.on('option:newpage', ()=>{
+    //     const options = program.opts();
+    //     createPage(options.newpage)
+    //     // console.log(options)
+    // })
     program.on('command:*',(obj)=>{
         let commands = program.commands.map(cmd => cmd.name());
         log.error(colors.red('未知的命令' + obj[0]));

@@ -94,6 +94,10 @@ function shell(){
 }
 
 function publish() {
+    // return json
     console.log(process.cwd())
 }
-module.exports = publish;
+module.exports = {
+    publish,
+    json
+}
