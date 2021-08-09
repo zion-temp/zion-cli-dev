@@ -4,7 +4,8 @@
   "description": "zion-cli dev",
   "main": "index.js",
   "scripts": {
-    "test": "zion-cli init app  -f"
+    "test": "zion-cli init app  -f",
+    "git": "node git.js"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +13,7 @@
   "devDependencies": {
     "lerna": "^4.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "simple-git": "^2.42.0"
+  }
 }
