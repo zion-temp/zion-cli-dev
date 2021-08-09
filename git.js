@@ -6,17 +6,17 @@ simpleGit = git(GIT_REPOSITORY_ROOT );
 async  function gitfun (){
     //以下的所有命令都是基于这个repository的路径进行操作了
     
-    var status1 = await simpleGit.status();
+    await simpleGit.status();
     // console.log(status1)
     //等价于 git status
     // await simpleGit.pull('origin', 'master');  
     // 等价于 git pull origin marster (第一个参数是你的remote端名称， 第二个参数是你的分支名称)
     // await simpleGit.checkout('master');
     // 等价于 git checkout master (master 指的是你的分支名称)
-    var status2  = await simpleGit.add('*');
+    await simpleGit.add('*');
     // console.log(status2)
     // 等价于  git add ./*
-    var status3 = await simpleGit.commit('first commit!');
+    await simpleGit.commit('first commit!');
     // console.log(status3)
     // 等价于 git commit -m 'first commit!'
     var status4 = await simpleGit.push('origin', 'master');
