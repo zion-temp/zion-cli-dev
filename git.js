@@ -1,4 +1,4 @@
-const git = require('simple-git/promise');
+const git = require('simple-git');
 // console.log(process.cwd())
 const GIT_REPOSITORY_ROOT = process.cwd()
 simpleGit = git(GIT_REPOSITORY_ROOT );
