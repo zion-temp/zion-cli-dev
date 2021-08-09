@@ -19,5 +19,7 @@ async  function gitfun (){
     // 等价于 git push origin master (origin指的是你的remote端名称， master指的是你的分支名称)
     // await simpleGit.mergeFromTo('from', 'to');
     // 将from分支上的代码合并到to分支上去
+    console.log('success')
+    process.exit(0);//退出子进程
 }
 gitfun();
